@@ -1,20 +1,20 @@
 class Animal:
     alive = []
 
-    def __init__(self, name, health: int = 100, hidden: bool = False):
+    def __init__(self, name, health: int = 100, hidden: bool = False) -> None:
         self.health = health
         self.name = name
         self.hidden = hidden
         Animal.alive.append(self)
 
-    def is_alive(self):
+    def is_alive(self) -> bool:
         return self.health > 0
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"{{Name: {self.name}, Health: {self.health}, Hidden: {self.hidden}}}"
 
 class Carnivore(Animal):
-    def bite(self, animal: Animal):
+    def bite(self, animal: Animal) -> None:
         if self in Animal.alive:
             if isinstance(animal, Herbivore) and animal.hidden:
                 print(f"{self.name} cannot bite hidden {animal.name}")
@@ -30,7 +30,7 @@ class Carnivore(Animal):
             print(f"{self.name} is dead and cannot bite")
 
 class Herbivore(Animal):
-    def hide(self):
+    def hide(self) -> None:
         if self in Animal.alive:
             self.hidden = True
             print(f"{self.name} is now hidden")
