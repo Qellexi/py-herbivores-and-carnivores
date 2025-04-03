@@ -10,6 +10,11 @@ class Animal:
     def is_alive(self) -> bool:
         return self.health > 0
 
+    def is_dead(self) -> None:
+        if not self.is_alive():
+            print(f"{self.name} is dead!")
+            Animal.alive.remove(self)
+
     def __repr__(self) -> str:
         return f"{{Name: {self.name}, Health: {self.health}, Hidden: {self.hidden}}}"
 
@@ -23,16 +28,14 @@ class Carnivore(Animal):
             else:
                 animal.health -= 50
                 print(f"{self.name} bites {animal.name}! {animal.name}'s health is now {animal.health}")
-                if not animal.is_alive():
-                    print(f"{animal.name} is dead!")
-                    Animal.alive.remove(animal)
+                animal.is_dead()
         else:
             print(f"{self.name} is dead and cannot bite")
 
 class Herbivore(Animal):
     def hide(self) -> None:
         if self in Animal.alive:
-            self.hidden = True
+            self.hidden = not self.hidden
             print(f"{self.name} is now hidden")
         else:
             print(f"{self.name} is dead")
